@@ -26,6 +26,25 @@ app.get('/command/:command', function (req, res) {
   	});
 });
 
+// Set up the server
+app.get('/getPowerStatus', function (req, res) {
+	// Confirm the command
+	console.log('Getting power status');
+
+	// Call the Bravia function. 
+	bravia(tvIP, pskKey, function(client) {
+		// Call a command
+		client.getPowerStatus(function (response) {
+			res.setHeader('Content-Type', 'application/json');
+			if(response.error) {
+				res.send(500, response);
+			} else {
+				res.send(200, response);
+			}
+		});
+  	});
+});
+
 app.get('/:intent', function (req, res) {
 	// Get the intent 
 	var intent = req.params.intent;
