@@ -34,9 +34,10 @@ app.get('/getPowerStatus', function (req, res) {
 	// Call the Bravia function. 
 	bravia(tvIP, pskKey, function(client) {
 		// Call a command
+		console.log(client);
 		client.getPowerStatus(function (response) {
 			res.setHeader('Content-Type', 'application/json');
-			if(response.error) {
+			if(response && response.error) {
 				res.send(500, response);
 			} else {
 				res.send(200, response);
