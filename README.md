@@ -11,8 +11,8 @@ Most changes made from the original repo are
 To run that container
 * docker build -t appellemoipolo/bravia-node-service .
 * touch cookies.json
-* to run with pskkey: docker run -d -p 5006:5006 --env SONY_TV_IP=sony-ip-cannot-use-dhcp-name-because-of-wake-on-lan --env SONY_TV_MAC=sony-mac-address-for-wake-on-lan --env SONY_TV_PSKKEY=sony-psk-key-define-on-your-tv -v $(pwd)/cookies.json:/node-bravia/cookies.json --name bravia-service appellemoipolo/bravia-node-service
-* to run with normal authentication: docker run -d -p 5006:5006 --env SONY_TV_IP=sony-ip-cannot-use-dhcp-name-because-of-wake-on-lan --env SONY_TV_MAC=sony-mac-address-for-wake-on-lan -v $(pwd)/cookies.json:/node-bravia/cookies.json --name bravia-service appellemoipolo/bravia-node-service
+* to run with pskkey: docker run -d -p 5006:5006 --net host --env SONY_TV_IP=sony-ip-or-dhcp-name --env SONY_TV_MAC=sony-mac-address-for-wake-on-lan --env SONY_TV_PSKKEY=sony-psk-key-define-on-your-tv -v $(pwd)/cookies.json:/node-bravia/cookies.json --name bravia-service appellemoipolo/bravia-node-service (--net host is for wake on lan)
+* to run with normal authentication: docker run -d -p 5006:5006 --net host --env SONY_TV_IP=sony-ip-cannot-use-dhcp-name-because-of-wake-on-lan --env SONY_TV_MAC=sony-mac-address-for-wake-on-lan -v $(pwd)/cookies.json:/node-bravia/cookies.json --name bravia-service appellemoipolo/bravia-node-service
 
 At first run, you need to authenticate - create your cookie - for your next requests.
 * docker exec -it bravia-service bash
@@ -23,6 +23,7 @@ Functions easily accessible:
 * http://yourmachine:5006/getPlayingContentInfo
 * http://yourmachine:5006/getCommandList (commands that can be use with two nexts functions)
 * http://yourmachine:5006/sendNamedIRCCCommand/Home
+* http://yourmachine:5006/sendNamedIRCCCommand/PowerOn
 * http://yourmachine:5006/sendIRCCCommand/AAAAAQAAAAEAAABgAw== (Home on my tv)
 
 The generic function:
